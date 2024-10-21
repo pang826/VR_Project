@@ -2,27 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Melee : MonoBehaviour
 {
-    [SerializeField] float curTime;
-    [SerializeField] LineRenderer line;
-    [SerializeField] GameObject enemy;
-    private void Awake()
-    {
-        line = GetComponent<LineRenderer>();
-    }
-    private void Update()
-    {
-        curTime += Time.deltaTime;
-        if(curTime >= 3)
-        {
-            Destroy(gameObject);
-        }
-    }
     private void OnCollisionEnter(Collision collision)
     {
         // 맞은 대상의 tag 가 Enemy 라면 반응
-        if(collision.collider.CompareTag("Enemy"))
+        if (collision.collider.CompareTag("Enemy"))
         {
             // 맞은 부분의 리지드바디 받아오기
             Rigidbody targetRigid = collision.collider.GetComponent<Rigidbody>();
@@ -42,6 +27,5 @@ public class Bullet : MonoBehaviour
             // 오브젝트 파괴
             Destroy(gameObject);
         }
-        
     }
 }
