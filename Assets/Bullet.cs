@@ -37,11 +37,11 @@ public class Bullet : MonoBehaviour
             // 총알을 맞은 위치에서부터 충격을 받음
             targetRigid.AddForce(transform.forward * 0.0001f, ForceMode.Impulse);
 
-            // 맞은 대상의 전체 키네마틱 중단
+            // 맞은 대상의 전체 키네마틱 중단 + 사망상태 전환
             enemy.Damage();
-            // 오브젝트 파괴
-            Destroy(gameObject);
+            enemy.isDied = true;
         }
-        
+        // 오브젝트 파괴
+        Destroy(gameObject);
     }
 }

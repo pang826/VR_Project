@@ -15,12 +15,13 @@ public class PlayerMoveTimeSet : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("CheckSpeed", 0, 0.02f);
+        InvokeRepeating("CheckSpeed", 0, 0.05f);
     }
 
     private void Update()
     {
-        if (playerSpeed <= 0f)
+        Debug.Log(playerSpeed);
+        if (playerSpeed == 0f)
         {
             gameManager.FixedUpdateTimeSet(0.1f);
         }
@@ -33,7 +34,7 @@ public class PlayerMoveTimeSet : MonoBehaviour
     {
         Vector3 curPos = character.transform.position;
         float Distance = Vector3.Distance(curPos, previousPos);
-        playerSpeed = Distance / 0.02f;
+        playerSpeed = Distance / 0.05f;
 
         previousPos = curPos;
     }

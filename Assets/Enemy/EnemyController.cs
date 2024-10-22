@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,8 @@ public class EnemyController : MonoBehaviour
     [SerializeField] CharacterController player;
 
     [SerializeField] Rigidbody[] rigids;
+
+    public bool isDied = false;
     private void Awake()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -29,7 +32,14 @@ public class EnemyController : MonoBehaviour
     }
     private void Update()
     {
-        nav.destination = player.transform.position;
+        if (!isDied)
+        {
+            nav.destination = player.transform.position;
+        }
+        if(isDied)
+        {
+            StartCoroutine(Die());
+        }
     }
 
     public void Damage()
@@ -38,5 +48,12 @@ public class EnemyController : MonoBehaviour
         {
             rigid.isKinematic = false;
         }
+    }
+
+    IEnumerator Die()
+    {
+        isDied = false; // 코루틴의 무한반복을 막기 위함
+        yield return new WaitForSeconds(1);
+        Destroy(gameObject);
     }
 }
